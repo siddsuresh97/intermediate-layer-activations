@@ -6,6 +6,7 @@ from tqdm import tqdm
 from keras import backend as K
 import pickle
 from keras.preprocessing.image import ImageDataGenerator
+import shutil
 
 def resnet(op_from_layers=[79]):
     model = ResNet50(include_top=True, weights='imagenet', input_tensor=None, input_shape=None)
