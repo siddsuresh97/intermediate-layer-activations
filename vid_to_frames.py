@@ -2,7 +2,7 @@ import subprocess
 from tqdm import tqdm
 import os
 import shutil
-def extract_frames_from_videos(directory, extension = '.m4v', h = 240, w = 240, fps):
+def extract_frames_from_videos(directory, fps, extension = '.m4v', h = 240, w = 240):
     for i in range(0,len(os.listdir(directory))):
         fname = os.listdir(directory)[i]
         if(os.path.isdir(os.path.join(directory, fname))):
@@ -49,7 +49,7 @@ def main():
     width = args.w
     fps = args.fps
     put_vids_into_dir(directory,extension)
-    extract_frames_from_videos(directory, extension , height, width, fps)
+    extract_frames_from_videos(directory, fps, extension , height, width)
 
 
 if __name__=="__main__":
