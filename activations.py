@@ -33,6 +33,15 @@ def dump_pickle(results,output_dir):
     with open(os.path.join(output_dir,"results.p"), 'wb') as pfile:
         pickle.dump(results, pfile, protocol=pickle.HIGHEST_PROTOCOL)
         
+def write_to_hdf5(results, op_fname, op_directory):
+    dt = h5py.special_dtype(vlen=unicode)
+    file = h5py.File(os.path.join(op_directory,op_fname),'w')
+    file.create_dataset("fname", (len(results.keys()), dtype = dt)
+    file.create_dataset("activations", results.keys()[0].shape, dtype = "f")
+    for i in range(len(results.keys()):
+        file['fname'][i] = results.keys()[0]
+        file['activations'][i] = results[results.keys()[0]]
+        
 def put_dir_into_dir(directory):
     fnames = os.listdir(directory)
     for i in fnames:
@@ -56,7 +65,16 @@ def main():
     parser.add_argument('--input_width',
                             type=int,
                             help="""width of input to the model""")
+                   
     parser.add_argument('--output_layers', nargs='+', type=int)
+                   
+    parser.add_argument('--op_fname',
+                            type=str,
+                            help="""desired name of the output h5 file""")
+                 
+    parser.add_argument('--op_dir',
+                            type=str,
+                            help="""full path to desired output directory""")
 
 
     args=parser.parse_args()
@@ -66,10 +84,14 @@ def main():
     height = args.input_height
     width = args.input_width
     output_from_layers = args.output_layers
+    op_fname = args.output_fname
+    op_directory = args.op_dir
     model = resnet(output_from_layers)
     put_dir_into_dir(directory)
     results = prediction_with_flow(model, directory, batch_size, height, width)
-    dump_pickle(results,directory)
+    #dump_pickle(results,directory) use this if you want output from multiple layers or modify write_to_hdf5 
+    import ipdb;ipdb.set_trace()
+    write_to_hdf5(results, op_fname, op_directory)
 
 if __name__=="__main__":
     main()
