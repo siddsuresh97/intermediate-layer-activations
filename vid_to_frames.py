@@ -43,7 +43,7 @@ def main():
     height = args.h
     width = args.w
     put_vids_into_dir(directory,extension)
-    extract_frames_from_videos(directory,extension,h,w)
+    extract_frames_from_videos(directory, extension , height, width)
 
 
 if __name__=="__main__":
