@@ -7,21 +7,11 @@ from keras import backend as K
 import pickle
 from keras.preprocessing.image import ImageDataGenerator
 
-def img_from_dir(dir):
-    image_filenames  = [i for i in os.listdir(dir) if i[-1]=='g']
-    X=[]
-    for i in image_filenames:
-        im = load_img(os.path.join(dir,i), target_size = (224,224))
-        X.append(img_to_array(im))
-    return X
-
 def resnet(op_from_layers=[79]):
     model = ResNet50(include_top=True, weights='imagenet', input_tensor=None, input_shape=None)
     output_layers = [model.layers[i].output for i in op_from_layers]
     model_req = Model(input=model.input, output=output_layers)
     return model_req
-
-def
 
 def prediction_with_flow(model,main_dir, batch_size, h, w):
     pred={}
@@ -41,6 +31,12 @@ def prediction_with_flow(model,main_dir, batch_size, h, w):
 def dump_pickle(reults):
     with open("results.p", 'wb') as pfile:
         pickle.dump(results, pfile, protocol=pickle.HIGHEST_PROTOCOL)
+        
+def put_dir_into_dir(directory):
+    fnames = os.listdir(directory)
+    for i in fnames:
+        os.makedirs(os.path.join(directory,i+'_')
+        shutil.move(os.path.join(directory,i),os.path.join(directory,i+'_'))
 
 def main():
     import argparse
@@ -70,6 +66,7 @@ def main():
     width = args.input_width
     output_from_layers = args.outputs_layers
     model = resnet(output_from_layers)
+    put_dir_into_dir(directory)
     results = prediction_with_flow(model, directory, batch_size, height, width)
     dump_pickle(results)
 
