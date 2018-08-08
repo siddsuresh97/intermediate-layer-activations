@@ -9,7 +9,7 @@ def extract_frames_from_videos(directory, fps, extension = '.m4v', h = 240, w = 
             cwd = os.path.join(directory, fname)
             file = os.path.join(cwd, fname + extension)
             img_names = os.path.join(cwd, "c01_%04d.jpeg")
-            subprocess.call(['ffmpeg', '-i', '{}'.format(file), '-vf' ,'scale={}:{}'.format(h,w), 'fps={}'.format(fps), '{}'.format(img_names)]) 
+            subprocess.call(['ffmpeg', '-i', '{}'.format(file), '-vf' ,'scale={}:{}'.format(h,w), '{}'.format(img_names)]) 
 
 
 def put_vids_into_dir(directory, extension = '.mp4'):
