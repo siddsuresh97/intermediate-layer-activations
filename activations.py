@@ -33,7 +33,7 @@ def dump_pickle(results,output_dir):
     with open(os.path.join(output_dir,"results.p"), 'wb') as pfile:
         pickle.dump(results, pfile, protocol=pickle.HIGHEST_PROTOCOL)
         
-def write_to_hdf5(results, op_fname, op_directory):
+def write_to_hdf5(results, op_fname, op_directory)):
     dt = h5py.special_dtype(vlen=unicode)
     file = h5py.File(os.path.join(op_directory,op_fname),'w')
     file.create_dataset("fname", (len(results.keys())), dtype = dt)
