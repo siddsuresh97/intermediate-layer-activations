@@ -29,8 +29,8 @@ def prediction_with_flow(model,main_dir, batch_size, h, w):
             pred.update({i.split("_")[0]:probabilities})
     return pred
 
-def dump_pickle(reults):
-    with open("results.p", 'wb') as pfile:
+def dump_pickle(results,output_dir):
+    with open(os.path.join(output_dir,"results.p"), 'wb') as pfile:
         pickle.dump(results, pfile, protocol=pickle.HIGHEST_PROTOCOL)
         
 def put_dir_into_dir(directory):
@@ -69,7 +69,7 @@ def main():
     model = resnet(output_from_layers)
     put_dir_into_dir(directory)
     results = prediction_with_flow(model, directory, batch_size, height, width)
-    dump_pickle(results)
+    dump_pickle(results,directory)
 
 if __name__=="__main__":
     main()
