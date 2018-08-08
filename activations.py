@@ -56,7 +56,7 @@ def main():
     parser.add_argument('--input_width',
                             type=int,
                             help="""width of input to the model""")
-    parser.add_argument('--outputs_layers', nargs='+', type=int)
+    parser.add_argument('--output_layers', nargs='+', type=int)
 
 
     args=parser.parse_args()
@@ -65,7 +65,7 @@ def main():
     batch_size = args.batch_size
     height = args.input_height
     width = args.input_width
-    output_from_layers = args.outputs_layers
+    output_from_layers = args.output_layers
     model = resnet(output_from_layers)
     put_dir_into_dir(directory)
     results = prediction_with_flow(model, directory, batch_size, height, width)
