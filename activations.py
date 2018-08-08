@@ -36,7 +36,7 @@ def dump_pickle(reults):
 def put_dir_into_dir(directory):
     fnames = os.listdir(directory)
     for i in fnames:
-        os.makedirs(os.path.join(directory,i+'_')
+        os.makedirs(os.path.join(directory,i+'_'))
         shutil.move(os.path.join(directory,i),os.path.join(directory,i+'_'))
 
 def main():
