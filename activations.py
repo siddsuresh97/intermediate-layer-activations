@@ -36,7 +36,7 @@ def dump_pickle(results,output_dir):
 def write_to_hdf5(results, op_fname, op_directory):
     dt = h5py.special_dtype(vlen=unicode)
     file = h5py.File(os.path.join(op_directory,op_fname),'w')
-    file.create_dataset("fname", (len(results.keys()), dtype = dt)
+    file.create_dataset("fname", (len(results.keys())), dtype = dt)
     file.create_dataset("activations", results.keys()[0].shape, dtype = "f")
     for i in range(len(results.keys()):
         file['fname'][i] = results.keys()[0]
@@ -84,14 +84,14 @@ def main():
     height = args.input_height
     width = args.input_width
     output_from_layers = args.output_layers
-    op_fname = args.output_fname
+    op_fname = args.op_fname
     op_directory = args.op_dir
     model = resnet(output_from_layers)
     put_dir_into_dir(directory)
     results = prediction_with_flow(model, directory, batch_size, height, width)
-    #dump_pickle(results,directory) use this if you want output from multiple layers or modify write_to_hdf5 
+    dump_pickle(results,directory) #use this if you want output from multiple layers or modify write_to_hdf5 
     import ipdb;ipdb.set_trace()
-    write_to_hdf5(results, op_fname, op_directory)
+    #write_to_hdf5(results, op_fname, op_directory)
 
 if __name__=="__main__":
     main()
