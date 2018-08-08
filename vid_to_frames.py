@@ -41,7 +41,7 @@ def main():
     directory = args.dir
     extension = args.ext
     height = args.h
-    width = args.width
+    width = args.w
     put_vids_into_dir(directory,extension)
     extract_frames_from_videos(directory,extension,h,w)
 
