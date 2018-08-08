@@ -2,14 +2,14 @@ import subprocess
 from tqdm import tqdm
 import os
 import shutil
-def extract_frames_from_videos(directory, extension = '.m4v', h = 240, w = 240):
+def extract_frames_from_videos(directory, extension = '.m4v', h = 240, w = 240, fps):
     for i in range(0,len(os.listdir(directory))):
         fname = os.listdir(directory)[i]
         if(os.path.isdir(os.path.join(directory, fname))):
             cwd = os.path.join(directory, fname)
             file = os.path.join(cwd, fname + extension)
             img_names = os.path.join(cwd, "c01_%04d.jpeg")
-            subprocess.call(['ffmpeg', '-i', '{}'.format(file), '-vf' ,'scale={}:{}'.format(h,w), '{}'.format(img_names)]) 
+            subprocess.call(['ffmpeg', '-i', '{}'.format(file), '-vf' ,'scale={}:{}'.format(h,w), 'fps={}.format(fps)', '{}'.format(img_names)]) 
 
 
 def put_vids_into_dir(directory, extension = '.mp4'):
@@ -35,6 +35,11 @@ def main():
     parser.add_argument('--w',
                             type=int,
                             help="""width of output frame""")
+    
+    parser.add_argument('--fps',
+                            type=int,
+                            help="""sampling rate""")
+
 
     args=parser.parse_args()
 
@@ -42,8 +47,9 @@ def main():
     extension = args.ext
     height = args.h
     width = args.w
+    fps = args.fps
     put_vids_into_dir(directory,extension)
-    extract_frames_from_videos(directory, extension , height, width)
+    extract_frames_from_videos(directory, extension , height, width, fps)
 
 
 if __name__=="__main__":
