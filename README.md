@@ -1,6 +1,7 @@
 # intermediate-layer-activations
 
 This repository helps you get activations from intermediate layers of a neural network on videos.
+First step for doing an STA or STC.
 
 
 Run the following commands:
